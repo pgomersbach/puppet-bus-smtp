@@ -20,7 +20,7 @@ class bussmtp::install {
   vcsrepo { '/opt/bussmtp':
     ensure   => present,
     provider => git,
-    source   => 'https://github.com/pgomersbach/bussmtp.git',
+    source   => 'https://github.com/pgomersbach/bus-smtp.git',
     require  => File['/opt'],
   }
 }
