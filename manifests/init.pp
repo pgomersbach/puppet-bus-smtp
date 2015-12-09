@@ -14,6 +14,8 @@ class bussmtp
 ) inherits ::bussmtp::params {
 
   # validate parameters here
+  validate_string($package_name)
+  validate_string($service_name)
 
   class { '::bussmtp::install': } ->
   class { '::bussmtp::config': } ~>
