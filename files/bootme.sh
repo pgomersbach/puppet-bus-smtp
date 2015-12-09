@@ -30,7 +30,7 @@ else
 fi
 
 # install git
-apt-get install git bundler -y || yum install -y git bundler
+apt-get install git bundler zlib1g-dev -y || yum install -y git bundler zlib-devel
 
 # get or update repo
 if [ -d /root/bussmtp ]; then
