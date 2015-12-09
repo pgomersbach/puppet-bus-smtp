@@ -16,6 +16,11 @@ class bussmtp::install {
     ensure => directory,
   }
 
+  # create /var/log/bussmtp
+  file { '/var/log/bussmtp':
+    ensure => directory,
+  }
+
   # clone bussmtp repo
   vcsrepo { '/opt/bussmtp':
     ensure   => present,

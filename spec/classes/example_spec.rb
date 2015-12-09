@@ -27,6 +27,7 @@ describe 'bussmtp' do
           it { is_expected.to contain_package('net-ping').with_provider('gem') }
 
           it { is_expected.to contain_file('/opt') }
+          it { is_expected.to contain_file('/var/log/bussmtp') }
           it { is_expected.to contain_vcsrepo('/opt/bussmtp') }
 
           it { is_expected.to contain_file('bussmtp.init') }
@@ -61,16 +62,14 @@ describe 'bussmtp' do
       it { is_expected.to contain_service('httpd') }
     end
 
-    context "On an unknown OS with no package name specified" do
+    context "On an unupported OS with no package name specified" do
       let :facts do
         {
           :osfamily => 'Darwin'
         }
       end
 
-      it {
-        expect { should raise_error(Puppet::Error) }
-      }
+      it { is_expected.to raise_error(Puppet::Error) }
     end
   end
 end
