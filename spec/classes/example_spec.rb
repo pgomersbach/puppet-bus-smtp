@@ -21,11 +21,54 @@ describe 'bussmtp' do
           it { is_expected.to contain_class('bussmtp::config') }
           it { is_expected.to contain_class('bussmtp::service').that_subscribes_to('bussmtp::config') }
 
-          it { is_expected.to contain_service('bussmtp') }
-          it { is_expected.to contain_package('bussmtp').with_ensure('present') }
+          it { is_expected.to contain_package('git').with_ensure('present') }
+          it { is_expected.to contain_package('ruby').with_ensure('present') }
+          it { is_expected.to contain_file('/opt') }
+          it { is_expected.to contain_vcsrepo('/opt/bussmtp') }
 
+
+          it { is_expected.to contain_file('bussmtp.init') }
+          it { is_expected.to contain_file('bussmtpconfigdir') }
+          it { is_expected.to contain_file('bussmtp.yaml') }
+          it { is_expected.to contain_logrotate__rule('bussmtp.logrotate') }
+
+          it { is_expected.to contain_service('bussmtp') }
         end
       end
+    end
+
+    context "On a Debian OS with no package name specified" do
+      let :facts do
+        {
+          :osfamily => 'Debian'
+        }
+      end
+
+      it { is_expected.to contain_package('apache2') }
+      it { is_expected.to contain_service('apache2') }
+    end
+
+    context "On a RedHat OS with no package name specified" do
+      let :facts do
+        {
+          :osfamily => 'RedHat'
+        }
+      end
+
+      it { is_expected.to contain_package('httpd') }
+      it { is_expected.to contain_service('httpd') }
+    end
+
+    context "On an unknown OS with no package name specified" do
+      let :facts do
+        {
+          :osfamily => 'Darwin'
+        }
+      end
+
+      it {
+        expect { should raise_error(Puppet::Error) }
+      }
     end
   end
 end

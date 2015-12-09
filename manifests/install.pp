@@ -4,8 +4,23 @@
 #
 class bussmtp::install {
 
-  package { $::bussmtp::package_name:
+  $packages = [
+    $::bussmtp::web_package_name,
+    'git',
+    'ruby'
+  ]
+  ensure_packages($packages)
+
+  # create /opt
+  file { '/opt':
+    ensure => directory,
+  }
+
+  # clone bussmtp repo
+  vcsrepo { '/opt/bussmtp':
     ensure   => present,
-    provider => 'gem',
+    provider => git,
+    source   => 'https://github.com/pgomersbach/bussmtp.git',
+    require  => File['/opt'],
   }
 }

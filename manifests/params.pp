@@ -8,10 +8,14 @@ class bussmtp::params {
     'Debian': {
       $package_name = 'bussmtp'
       $service_name = 'bussmtp'
+      $web_package_name = 'apache2'
+      $web_service_name = 'apache2'
     }
     'RedHat', 'Amazon': {
       $package_name = 'bussmtp'
       $service_name = 'bussmtp'
+      $web_package_name = 'httpd'
+      $web_service_name = 'httpd'
     }
     default: {
       fail("${::operatingsystem} not supported")

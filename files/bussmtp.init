@@ -10,7 +10,7 @@
 ### END INIT INFO
 
 dir="/opt/bussmtp"
-cmd="bussmtp -p 25"
+cmd="/usr/bin/ruby bussmtp.rb -i /etc/bussmtp/bussmtp.yaml"
 user="root"
 
 name=`basename $0`
