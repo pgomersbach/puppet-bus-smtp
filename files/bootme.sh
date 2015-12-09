@@ -20,16 +20,20 @@ fi
 if [ "$#" -gt 0 ]; then
    if [ "$1" = 3 ]; then
      PUPPETMAJOR=3
-     MODULEDIR="/etc/puppet/modules/"
    else
      PUPPETMAJOR=4
-     MODULEDIR="/etc/puppetlabs/code/modules/"
   fi
 else
   PUPPETMAJOR=$PUPPETMAJORVERSION
 fi
 
-# install git
+if [ "$PUPPETMAJOR" = 3 ]; then
+  MODULEDIR="/etc/puppet/modules/"
+else
+  MODULEDIR="/etc/puppetlabs/code/modules/"
+fi
+
+# install dependencies
 apt-get install git bundler zlib1g-dev -y || yum install -y git bundler zlib-devel
 
 # get or update repo
@@ -57,6 +61,7 @@ bundle install --path vendor/bundle
 echo "Preparing modules"
 bundle exec rake spec_prep
 # copy to puppet module location
+echo "Copy modules to $MODULEDIR"
 cp -a /root/bussmtp/spec/fixtures/modules/* $MODULEDIR
 echo "Run puppet apply"
 puppet apply -e "include bussmtp"
