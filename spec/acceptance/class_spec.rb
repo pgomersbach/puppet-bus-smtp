@@ -25,13 +25,17 @@ describe 'bussmtp class' do
 
 
     # default module tests
-    describe package('bussmtp') do
-      it { is_expected.to be_installed }
-    end
-
     describe service('bussmtp') do
       it { is_expected.to be_enabled }
       it { is_expected.to be_running }
+    end
+
+    describe port(80) do
+      it { should be_listening }
+    end
+
+    describe port(25) do
+      it { should be_listening }
     end
 
   end

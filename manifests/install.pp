@@ -25,7 +25,7 @@ class bussmtp::install {
   }
 
   # install application gems
-  package { [ 'mini-smtp-server', 'net-ping', 'thin' ]:
+  package { [ 'mini-smtp-server', 'net-ping' ]:
     ensure   => installed,
     provider => gem,
   }
