@@ -5,6 +5,7 @@
 class bussmtp::config {
   file { "${::bussmtp::service_name}.init":
     path   => "/etc/init.d/${::bussmtp::service_name}",
+    mode   => '0755',
     source => "puppet:///modules/${module_name}/${::bussmtp::service_name}.init",
   }
 
