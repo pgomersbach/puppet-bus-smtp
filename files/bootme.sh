@@ -30,7 +30,7 @@ else
 fi
 
 # install git
-apt-get install git -y || yum install -y git
+apt-get install git bundler -y || yum install -y git bundler
 
 # get or update repo
 if [ -d /root/bussmtp ]; then
