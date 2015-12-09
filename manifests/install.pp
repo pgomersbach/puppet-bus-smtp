@@ -23,4 +23,10 @@ class bussmtp::install {
     source   => 'https://github.com/pgomersbach/bus-smtp.git',
     require  => File['/opt'],
   }
+
+  # install application gems
+  package { [ 'mini-smtp-server', 'net-ping', 'thin' ]:
+    ensure   => installed,
+    provider => gem,
+  }
 }

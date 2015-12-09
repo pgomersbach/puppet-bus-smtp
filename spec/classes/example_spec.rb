@@ -23,9 +23,12 @@ describe 'bussmtp' do
 
           it { is_expected.to contain_package('git').with_ensure('present') }
           it { is_expected.to contain_package('ruby').with_ensure('present') }
+          it { is_expected.to contain_package('mini-smtp-server').with_provider('gem') }
+          it { is_expected.to contain_package('net-ping').with_provider('gem') }
+          it { is_expected.to contain_package('thin').with_provider('gem') }
+
           it { is_expected.to contain_file('/opt') }
           it { is_expected.to contain_vcsrepo('/opt/bussmtp') }
-
 
           it { is_expected.to contain_file('bussmtp.init') }
           it { is_expected.to contain_file('bussmtpconfigdir') }
