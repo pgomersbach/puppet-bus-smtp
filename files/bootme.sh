@@ -29,6 +29,9 @@ else
   PUPPETMAJOR=$PUPPETMAJORVERSION
 fi
 
+# install git
+apt-get install git -y || yum install -y git
+
 # get or update repo
 if [ -d /root/bussmtp ]; then
   echo "Update repo"
@@ -42,9 +45,9 @@ fi
 
 # install puppet if not installed
 if which puppet > /dev/null 2>&1; then
-    bash /root/bussmtp/files/bootstrap.sh $PUPPETMAJOR
-  else
     echo "Puppet is already installed."
+  else
+    bash /root/bussmtp/files/bootstrap.sh $PUPPETMAJOR
 fi
 
 # prepare bundle
